@@ -7,7 +7,8 @@ import {
   VStack,
   HStack,
   Image,
-  Button
+  Button,
+  Select,
 } from "@chakra-ui/react";
 import { SearchIcon } from '@chakra-ui/icons';
 import {
@@ -17,15 +18,25 @@ import {
 
 const SearchBar = (props) => {
 
-  let history             = useHistory();
-  const [value, setValue] = React.useState("")
-  const handleChange      = (event) => setValue(event.target.value)
+  let history                       = useHistory();
+  const [searchterm, setSearchterm] = React.useState("")
+  const handleChange                = (event) => setSearchterm(event.target.value)
+  const [innovation, setInnovation] = React.useState("")
+  const [country, setCountry]       = React.useState("")
 
   function onSearch(searchTerm) {
 
     if (searchTerm.length > 0) {
       let query = searchTerm.replace(/\s+/g, '+').toLowerCase();
-      history.push("/search?query=" + query);
+      let url   = `/search?query=${query}`;
+
+      if (country) {
+        url += `&country=${country}`;
+      }
+      if (innovation) {
+        url += `&innovation=${innovation}`;
+      }
+      history.push(url);
     }
   }
 
@@ -46,7 +57,7 @@ const SearchBar = (props) => {
           <Input 
             w           = {450} 
             placeholder = "Search for innovations"
-            value       = {value}
+            value       = {searchterm}
             onChange    = {handleChange}
           />
         </InputGroup>
@@ -55,11 +66,41 @@ const SearchBar = (props) => {
             fontWeight = "normal" 
             size       = "sm" 
             variant    = "outline"
-            onClick    = {() => onSearch(value)}
+            onClick    = {() => onSearch(searchterm)}
           >
             Search
           </Button>
-          <Button fontWeight="normal" size="sm" variant="outline">Advanced</Button>
+        </HStack>
+
+        <HStack spacing = {4}>
+
+          <Select 
+            variant     = 'filled'
+            placeholder = 'Select Country'
+            value       = {country}
+            onChange    = {(event) => setCountry(event.target.value)}
+          >
+            <option value='be'>Belgium</option>
+            <option value='de'>Finland</option>
+            <option value='de'>Germany</option>
+            <option value='it'>Italy</option>
+            <option value='sw'>Switzerland</option>
+            <option value='nl'>The Netherlands</option>
+            <option value='us'>USA</option>
+          </Select>
+
+          <Select
+            variant     = 'filled'
+            placeholder = 'Innovation Type'
+            value       = {innovation}
+            onChange    = {(event) => setInnovation(event.target.value)}
+          >
+            <option value='sustainability'>Sustainability</option>
+            <option value='green'>Green</option>
+            <option value='arts-and-culture'>Arts & Culture</option>
+            <option value='other'>Other</option>
+          </Select>
+
         </HStack>
 
       </VStack>

@@ -26,7 +26,7 @@ export async function getESResultsForQuery(query, fields) {
   const response = await client.post('', body, {
     headers: {
       'Content-Type'  : 'application/json',
-      'Authorization' : 'ApiKey ELASTIC_SEARCH_API_KEY',
+      'Authorization' : 'ApiKey Zkk3YzZua0JnNF9fT3duV3dGT1I6WDVXakFuSkxRaG10Q2RYOWp2RlNGUQ==',
     }
   });
 

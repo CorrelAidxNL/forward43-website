@@ -24,7 +24,7 @@ import {
           justify   = "center"
           align     = {{ base: 'center', md: 'center' }}
         >
-          <Text>© 2021 MasterPeace Global</Text>
+          <Text>© 2022 MasterPeace Global</Text>
         </Box>
       </Flex>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Box,
+  Select,
 } from '@chakra-ui/react';
 
 import Header from '../components/header';

@@ -12,6 +12,7 @@ import {
 import HomePage from './pages/home';
 import SearchPage from './pages/search';
 import CallToActionWithIllustration from './pages/about';
+import SimpleCard from './pages/login';
 
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
 
           <Route path="/about">
             <CallToActionWithIllustration/>
+          </Route>
+
+          <Route path="/login">
+            <SimpleCard/>
           </Route>
 
           <Route path="/">

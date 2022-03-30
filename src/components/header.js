@@ -68,6 +68,15 @@ export default function Header(props) {
           About
         </Button>
       </Link>
+      <Link 
+        as    = {ReactLink} 
+        to    = "/login"
+        style = {{ textDecoration: 'none' }}
+      >
+        <Button w = "full" variant = "ghost">
+          Login
+        </Button>
+      </Link>
       <Link
         as    = {ReactLink} 
         to    = "/contact"
@@ -144,6 +153,23 @@ export default function Header(props) {
                     _focus     = {{ boxShadow: "none" }}
                   >
                     About
+                  </Button>
+                </Link>
+                <Link 
+                  as    = {ReactLink} 
+                  to    = "/login"
+                  style = {{ textDecoration: 'none' }}
+                >
+                  <Button
+                    bg         = {bg}
+                    color      = "gray.700"
+                    display    = "inline-flex"
+                    alignItems = "center"
+                    fontSize   = "md"
+                    _hover     = {{ color: cl, bg: "gray.200" }}
+                    _focus     = {{ boxShadow: "none" }}
+                  >
+                    Login
                   </Button>
                 </Link>
                 <Link
