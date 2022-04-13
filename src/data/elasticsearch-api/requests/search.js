@@ -3,6 +3,10 @@ import client from '../network';
 
 function parseResponse(response) {
 
+  console.log("------");
+  console.log(response['data'])
+  console.log("------");
+
   if (response.status !== 200) {
     return [];
   }
@@ -11,6 +15,14 @@ function parseResponse(response) {
 }
 
 export async function getESResultsForQuery(query, fields) {
+
+  if (fields['country'] === 'all') {
+
+  }
+
+  if (fields['innovation'] === 'all') {
+
+  }
 
   let body = {
     "query": {

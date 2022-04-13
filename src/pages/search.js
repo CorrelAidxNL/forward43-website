@@ -40,12 +40,13 @@ const SearchPage = (props) => {
   const [projects, setProjects] = useState([]);
 
   let countries = {
-    'be': 'Belgium',
-    'de': 'Germany',
-    'it': 'Italy',
-    'sw': 'Switzerland',
-    'nl': 'The Netherlands',
-    'us': 'USA',
+    'BE': 'Belgium',
+    'DE': 'Germany',
+    'FI': 'Finland',
+    'IT': 'Italy',
+    'SW': 'Switzerland',
+    'NL': 'The Netherlands',
+    'US': 'USA',
   };
 
   let country = query.get('country');
@@ -61,7 +62,10 @@ const SearchPage = (props) => {
   }
 
   useEffect(() => {
-    getESResultsForQuery(query.get("query"))
+    getESResultsForQuery(query.get("query"), {
+      country: country,
+      innovation: innovation,
+    })
     .then(data => {
       return data;
     })
@@ -86,7 +90,7 @@ const SearchPage = (props) => {
         <HStack w="full" spacing={2} bg="white" align="flex-start">
 
           <Box flex = {2}>
-            <Box w = "full" bg = "white" class = "fixed height element" px = {20} py = {10}>
+            <Box w = "full" bg = "white" className = "fixed height element" px = {20} py = {10}>
               <Heading as = "h4" size = "lg" color = "grey">Results for <Link color = '#FF006B'>{query.get("query")}</Link></Heading>
               <Box h = {10} />
               <Box>Sustainability
@@ -102,6 +106,7 @@ const SearchPage = (props) => {
             projects.length > 0 ? <Box flex = {3} bg = "white" align="flex-start">
               {projects.map((item, index) => (
                 <ProjectCard 
+                  key = {index}
                   title       = {projects[index]['_source']['title']}
                   description = {projects[index]['_source']['description']}
                   status      = {projects[index]['_source']['status']}

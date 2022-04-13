@@ -80,13 +80,13 @@ const SearchBar = (props) => {
             value       = {country}
             onChange    = {(event) => setCountry(event.target.value)}
           >
-            <option value='be'>Belgium</option>
-            <option value='de'>Finland</option>
-            <option value='de'>Germany</option>
-            <option value='it'>Italy</option>
-            <option value='sw'>Switzerland</option>
-            <option value='nl'>The Netherlands</option>
-            <option value='us'>USA</option>
+            <option value='BE'>Belgium</option>
+            <option value='DE'>Germany</option>
+            <option value='FI'>Finland</option>
+            <option value='IT'>Italy</option>
+            <option value='SW'>Switzerland</option>
+            <option value='NL'>The Netherlands</option>
+            <option value='US'>USA</option>
           </Select>
 
           <Select
