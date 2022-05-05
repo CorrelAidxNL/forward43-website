@@ -11,7 +11,18 @@ function parseResponse(response) {
     return [];
   }
 
-  return response['data']['hits']['hits'];
+  let data = response['data']['hits']['hits'];
+
+  for (let i = 0; i < data.length; i++) {
+    let link = data[i]['_source']['link'];
+
+    if (!link.startsWith('http')) {
+      link = 'https://' + link;
+      data[i]['_source']['link'] = link;
+    }
+  }
+
+  return data;
 }
 
 export async function getESResultsForQuery(query, fields) {

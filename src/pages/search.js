@@ -13,9 +13,6 @@ import { WarningTwoIcon } from '@chakra-ui/icons';
 import {
   useLocation
 } from "react-router-dom";
-import {
-  useHistory
-} from "react-router-dom";
 
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -40,7 +37,6 @@ function Repeat(props) {
 
 const SearchPage = (props) => {
 
-  let history                       = useHistory();
   let query                     = useQuery();
   const [projects, setProjects] = useState([]);
 
