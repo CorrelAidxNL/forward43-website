@@ -7,10 +7,14 @@ import {
   VStack,
   Grid,
   Link,
+  Checkbox,
 } from '@chakra-ui/react';
 import { WarningTwoIcon } from '@chakra-ui/icons';
 import {
   useLocation
+} from "react-router-dom";
+import {
+  useHistory
 } from "react-router-dom";
 
 import Header from '../components/header';
@@ -36,6 +40,7 @@ function Repeat(props) {
 
 const SearchPage = (props) => {
 
+  let history                       = useHistory();
   let query                     = useQuery();
   const [projects, setProjects] = useState([]);
 
@@ -61,10 +66,40 @@ const SearchPage = (props) => {
     innovation = 'all';
   }
 
+  let initBcorpChecked = false;
+  let source = query.get('source');
+  if (source == 'bcorp') {
+    initBcorpChecked = true;
+  }
+
+  const [bcorp, setBcorp] = useState(initBcorpChecked);
+
+  function onBcorpChecked(newValue) {
+    setBcorp(newValue);
+
+    getESResultsForQuery(query.get("query"), {
+      country: country,
+      innovation: innovation,
+      bcorp: newValue,
+    })
+    .then(data => {
+      return data;
+    })
+    .then(data => {
+      setProjects(data);
+    })
+    .catch(err => {
+      console.log(err);
+      console.log('Error fetching projects')
+    });
+
+  }
+
   useEffect(() => {
     getESResultsForQuery(query.get("query"), {
       country: country,
       innovation: innovation,
+      bcorp: bcorp,
     })
     .then(data => {
       return data;
@@ -93,11 +128,23 @@ const SearchPage = (props) => {
             <Box w = "full" bg = "white" className = "fixed height element" px = {20} py = {10}>
               <Heading as = "h4" size = "lg" color = "grey">Results for <Link color = '#FF006B'>{query.get("query")}</Link></Heading>
               <Box h = {10} />
-              <Box>Sustainability
+              <Box>
                 <Heading as = "h4" size = "md" color = "grey">Country: <Link color = '#202020'>{country}</Link></Heading>
               </Box>
               <Box py = {5}>
                 <Heading as = "h4" size = "md" color = "grey">Innovation Type: <Link color = '#202020'>{innovation}</Link></Heading>
+              </Box>
+              <Box py = {1}>
+                <Heading as = "h4" size = "md" color = "grey">Source:</Heading>
+                <VStack py= {4} >
+                  <Checkbox w="full"colorScheme='green' isDisabled>Masterpeace internal</Checkbox>
+                  <Checkbox 
+                    w="full"
+                    colorScheme='green' 
+                    isChecked={bcorp}
+                    onChange={() => onBcorpChecked(!bcorp)}  
+                  >Only B.Corp</Checkbox>
+                </VStack>
               </Box>
             </Box>
           </Box>

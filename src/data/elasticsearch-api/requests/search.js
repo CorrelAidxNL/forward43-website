@@ -16,6 +16,28 @@ function parseResponse(response) {
 
 export async function getESResultsForQuery(query, fields) {
 
+  console.log(fields);
+
+  let body = {
+    "query": {
+      "bool": {
+        "should": [
+          { "match": { "title"       : query } },
+          { "match": { "description" : query } },
+        ],
+        "filter" : {
+          "bool": {
+            "should": [
+              { "term": { "status" : "successful" } },
+              { "term": { "status" : "completed" } },
+              { "term": { "status" : "certified" } },
+            ]
+          }
+        },
+      }
+    }
+  };
+
   if (fields['country'] === 'all') {
 
   }
@@ -24,16 +46,13 @@ export async function getESResultsForQuery(query, fields) {
 
   }
 
-  let body = {
-    "query": {
-      "bool": {
-        "should": [
-          { "match": { "title"       : query } },
-          { "match": { "description" : query } }
-        ]
-      }
-    }
-  };
+  if (fields['bcorp'] === true) {
+   body['query']['bool']['must'] =  [
+      { "prefix": { "id"        : "b_corp" } },
+    ];
+  }
+  console.log("--***--");
+  console.log(body);
 
   const response = await client.post('', body, {
     headers: {
